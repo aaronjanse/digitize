@@ -24,6 +24,7 @@ export default class HomeScreen extends React.Component {
     try {
       await AsyncStorage.setItem('name', name);
       await AsyncStorage.setItem('number', number);
+      this.setState({name: '', number: ''})
       this.redirect()
    } catch (error) {
      console.log(error)
@@ -43,16 +44,20 @@ export default class HomeScreen extends React.Component {
   }
 
   redirect(){
-    this.props.navigation.navigate('MapScreen')
+    this.props.navigation.navigate('Map')
   }
 
   render() {
     return (
-      <View style={styles.container}>
-        <TextInput value={this.state.name} onChangeText={(name) => this.setState({name})} placeholder="John Smith"/>
-        <TextInput value={this.state.number} onChangeText={(number) => this.setState({number})} placeholder="#"/>
-        <Button title="Get Started" onPress={this.handlePress}     />
-      </View>
+        <View style={styles.container}>
+          <View style={styles.text}>
+            <Text style={{textAlign: 'center', fontSize: 25, marginBottom: 5}}> Welcome to EnviroReport</Text>
+            <Text style={{textAlign: 'center'}}> Please enter a few details about you to continue</Text>
+          </View>
+          <TextInput style={styles.input} value={this.state.name} onChangeText={(name) => this.setState({name})} placeholder="John Smith"/>
+          <TextInput style={styles.input} value={this.state.number} onChangeText={(number) => this.setState({number})} placeholder="phone number"/>
+          <Button title="Get Started" onPress={this.handlePress}     />
+        </View>
     );
   }
 
@@ -66,10 +71,21 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   input: {
-    height: 20,
-    width: 130,
+    marginBottom: 15,
+    borderBottomColor: 'black',
+    borderBottomWidth: 1,
+    fontSize: 10,
+    height: 35,
+    width: 250,
   },
   button: {
-
+    height: 30,
+    width: 130,
+    marginTop: 30
+  },
+  text: {
+    width: 300,
+    marginBottom: 30,
+    justifyContent: 'center'
   }
 });

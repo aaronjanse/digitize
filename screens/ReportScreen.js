@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { Button, Platform, View, TextInput, StyleSheet } from 'react-native';
+import MapView from 'react-native-maps';
 
 export default class SettingsScreen extends Component {
   constructor(props){
@@ -55,6 +56,7 @@ export default class SettingsScreen extends Component {
       <View style={styles.container}>
         <TextInput placeholder="Title"/>
         <TextInput value={this.state.description} placeholder="Description"/>
+        <Button title="Report"/>
       </View>
     );
   }

@@ -14,11 +14,22 @@ export default class HomeScreen extends React.Component {
   }
 
   handlePress() {
-
+    try {
+      await AsyncStorage.setItem('@MySuperStore:key', 'I like to save it.');
+   } catch (error) {
+     // Error saving data
+   }
   }
 
-  componentWillMount(){
-
+  async componentWillMount(){
+    try {
+      const value = await AsyncStorage.getItem('data');
+    if (value !== null) {
+      redirect()
+    }
+   } catch (error) {
+     // Error retrieving data
+   }
   }
 
   redirect(){

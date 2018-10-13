@@ -13,7 +13,7 @@ export default class HomeScreen extends React.Component {
     }
   }
 
-  let handlePress = () => {
+  handlePress() {
 
   }
 
@@ -43,18 +43,16 @@ export default class HomeScreen extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    display: flex,
-    justifyContent: center,
-    alignItems: center,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: '#fff',
   },
   input: {
     height: 20,
     width: 130,
-    border: 1 solid black,
   },
   button: {
 
   }
-
 });

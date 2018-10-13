@@ -90,7 +90,8 @@ const styles = StyleSheet.create({
 
   },
   map: {
-    width: 200,
-    height: 100
+    width: '90%',
+    margin: 'auto',
+    height: 400
   }
 });

@@ -3,7 +3,6 @@ import { Button, Platform, View, TextInput, StyleSheet } from 'react-native';
 import MapView from 'react-native-maps';
 import { Constants, Location, Permissions } from 'expo';
 
-
 export default class SettingsScreen extends Component {
   constructor(props){
     super(props)

@@ -3,6 +3,18 @@ import { Platform, View, StyleSheet, Button, Text, StatusBar } from 'react-nativ
 import MapView from 'react-native-maps';
 import { Constants, Location, Permissions } from 'expo';
 
+import firebase from 'firebase';
+import 'firebase/firestore';
+
+var firebaseConfig = {
+  apiKey: "AIzaSyDhPkHYe62XDScfsbTp3ifP910YK32rGhA",
+  authDomain: "digitize-hackathon.firebaseapp.com",
+  databaseURL: "https://digitize-hackathon.firebaseio.com",
+  projectId: "digitize-hackathon",
+  storageBucket: "digitize-hackathon.appspot.com",
+  messagingSenderId: "328433288607"
+};
+
 export default class LinksScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
@@ -20,6 +32,7 @@ export default class LinksScreen extends React.Component {
   state = {
     location: null,
     errorMessage: null,
+    db: null,
   }
 
   componentWillMount() {
@@ -30,6 +43,19 @@ export default class LinksScreen extends React.Component {
     } else {
       this._getLocationAsync();
     }
+
+    var app = firebase.initializeApp(firebaseConfig)
+    var db = app.firestore()
+    this.setState({db: db})
+
+    db.settings({ timestampsInSnapshots: true }) // fix deprecation error
+
+    db.collection("reports").get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+          console.log(doc.id);
+          console.log(doc.data());
+      });
+     });
   }
 
   _getLocationAsync = async () => {

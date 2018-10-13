@@ -37,7 +37,7 @@ export default class ReportScreen extends Component {
       headerRight: (
         <Button
           onPress={() => {
-            var description = 'abcdef'
+            var description = navigation.getParam('description')
             var latitude = 0;
             var longitude = 0;
 

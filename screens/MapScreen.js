@@ -11,7 +11,7 @@ export default class LinksScreen extends React.Component {
         <Button
           onPress={() => navigation.navigate('Report')}
           title="Report"
-          color="#0000ff"
+          color="#007AFF"
         />
       ),
     };

@@ -21,14 +21,14 @@ export default class SettingsScreen extends Component {
         <Button
           onPress={() => navigation.navigate('Map')}
           title="Cancel"
-          color="#0000ff"
+          color="#007AFF"
         />
       ),
       headerRight: (
         <Button
           onPress={() => navigation.navigate('Map')}
           title="Submit"
-          color="#0000ff"
+          color="#007AFF"
         />
       ),
     };

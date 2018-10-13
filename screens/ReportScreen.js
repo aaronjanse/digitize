@@ -24,7 +24,7 @@ export default class ReportScreen extends Component {
       ),
       headerRight: (
         <Button
-          onPress={() => navigation.navigate('Map')}
+          onPress={() => _handleSubmit()}
           title="Submit"
           color="#007AFF"
         />
@@ -56,29 +56,26 @@ export default class ReportScreen extends Component {
     }
     return (
       <View style={styles.container}>
-        <TextInput multiline={true} onChangeText={(description) => this.setState({description})}
+        <TextInput style={styles.input} multiline={true} onChangeText={(description) => this.setState({description})}
             value={this.state.description} placeholder="Description... "/>
         <MapView
           style={styles.map}
           region={{
             latitude: latitude,
             longitude: longitude,
-            latitudeDelta: 0.1,
-            longitudeDelta: 0.1
+            latitudeDelta: 0.005,
+            longitudeDelta: 0.005
           }}>
-
+              <Marker
+          coordinate={{latitude: latitude,longitude: longitude}}
+          title='title'
+          description='description'
+          />
         </MapView>
       </View>
     );
   }
 }
-
-//     <Marker
-// coordinate={{latitude: latitude,longitude: longitude}}
-// title='title'
-// description='description'
-// />
-
 
 const styles = StyleSheet.create({
   container: {
@@ -88,14 +85,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   input: {
-    height: 20,
-    width: 130,
-  },
-  button: {
-
+    height: 170,
+    width: '85%',
+    borderWidth: 2,
+    borderColor: '#d14817',
+    borderRadius: 4,
+    marginBottom: 25
   },
   map: {
-    width: '90%',
+    width: '85%',
     margin: 'auto',
     height: 400
   }

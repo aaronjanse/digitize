@@ -4,7 +4,7 @@ import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
 
-export default class HomeScreen extends React.Component {
+export default class LoginScreen extends React.Component {
   constructor(props){
     super(props)
     this.state = {

@@ -3,7 +3,7 @@ import { Button, Platform, View, TextInput, StyleSheet } from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
 import { Constants, Location, Permissions } from 'expo';
 
-export default class SettingsScreen extends Component {
+export default class ReportScreen extends Component {
   constructor(props){
     super(props)
     this.state = {

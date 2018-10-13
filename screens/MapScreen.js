@@ -15,7 +15,7 @@ var firebaseConfig = {
   messagingSenderId: "328433288607"
 };
 
-export default class LinksScreen extends React.Component {
+export default class MapScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Map',

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { View, TextInput, Platform, StyleSheet } from 'react-native';
+import { View, TextInput, StyleSheet } from 'react-native';
 
 export default class SettingsScreen extends Component {
   constructor(props){

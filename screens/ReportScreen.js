@@ -18,6 +18,13 @@ export default class SettingsScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Create Report',
+      headerLeft: (
+        <Button
+          onPress={() => navigation.navigate('Map')}
+          title="Cancel"
+          color="#0000ff"
+        />
+      ),
       headerRight: (
         <Button
           onPress={() => navigation.navigate('Map')}

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { View, TextInput, StyleSheet } from 'react-native';
+import { Button, View, TextInput, StyleSheet } from 'react-native';
 
 export default class SettingsScreen extends Component {
   constructor(props){
@@ -14,8 +14,17 @@ export default class SettingsScreen extends Component {
     }
   }
 
-  static navigationOptions = {
-    title: 'Create Report',
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: 'Create Report',
+      headerRight: (
+        <Button
+          onPress={() => navigation.navigate('Map')}
+          title="Submit"
+          color="#0000ff"
+        />
+      ),
+    };
   };
 
   state = {

@@ -92,7 +92,7 @@ export default class ReportScreen extends Component {
     }
     return (
       <View style={styles.container}>
-        <TextInput style={styles.input} multiline={true} onChangeText={(description) => this.setState({description})}
+        <TextInput style={styles.input} multiline={true} onChangeText={(description) => this.props.navigation.setParams({description})}
             value={this.state.description} placeholder="Description... "/>
         <MapView
           style={styles.map}

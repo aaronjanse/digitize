@@ -4,6 +4,7 @@ import MapView from 'react-native-maps';
 import { Constants, Location, Permissions } from 'expo';
 
 export default class LinksScreen extends React.Component {
+<<<<<<< Updated upstream
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Links',
@@ -16,6 +17,10 @@ export default class LinksScreen extends React.Component {
         />
       ),
     };
+=======
+  static navigationOptions = {
+    title: 'View Reports',
+>>>>>>> Stashed changes
   };
 
   state = {

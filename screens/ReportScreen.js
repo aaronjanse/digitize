@@ -1,10 +1,21 @@
-import React from 'react';
-import { StyleSheet,View,TextInput } from 'react-native';
+import React, {Component} from 'react';
+import { View, TextInput, Platform, View, StyleSheet } from 'react-native';
 
+export default class SettingsScreen extends Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      title: '',
+      description: '',
+      location : {
+        latitude: ''
+        longitude: ''
+      }
+    }
+  }
 
-export default class SettingsScreen extends React.Component {
   static navigationOptions = {
-    title: 'app.json',
+    title: 'Create Report',
   };
 
   state = {

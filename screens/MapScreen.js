@@ -6,8 +6,7 @@ import { Constants, Location, Permissions } from 'expo';
 export default class LinksScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: 'Links',
-      headerTitle: <Text>Map</Text>,
+      title: 'Map',
       headerRight: (
         <Button
           onPress={() => navigation.navigate('Report')}

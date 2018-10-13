@@ -69,7 +69,6 @@ export default class SettingsScreen extends Component {
             longitudeDelta: 0.1,
           }}>
         </MapView>
-        <Button title="Report"/>
       </View>
     );
   }

@@ -13,11 +13,17 @@ export default class HomeScreen extends React.Component {
     }
   }
 
-  handlePress(){
-    
+  let handlePress = () => {
+
   }
 
+  componentWillMount(){
 
+  }
+
+  redirect(){
+    this.props.navigation.navigate('MapScreen')
+  }
 
   static navigationOptions = {
     header: null,
@@ -26,8 +32,8 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <TextInput value={this.state.name} placeholder="John Smith"/>
-        <TextInput value={this.state.number} placeholder="#"/>
+        <TextInput value={this.state.name} onChangeText={(name) => this.setState({name})} placeholder="John Smith"/>
+        <TextInput value={this.state.number} onChangeText={(number) => this.setState({number})} placeholder="#"/>
         <Button title="Get Started" onPress={this.handlePress}     />
       </View>
     );
@@ -42,10 +48,13 @@ const styles = StyleSheet.create({
     alignItems: center,
     backgroundColor: '#fff',
   },
-  input {
+  input: {
     height: 20,
     width: 130,
     border: 1 solid black,
+  },
+  button: {
+
   }
 
 });

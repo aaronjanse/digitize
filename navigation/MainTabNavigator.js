@@ -3,15 +3,15 @@ import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/LoginScreen';
-import LinksScreen from '../screens/MapScreen';
-// import SettingsScreen from '../screens/ReportScreen';
+import LoginScreen from '../screens/LoginScreen';
+import MapScreen from '../screens/MapScreen';
+// import ReportScreen from '../screens/ReportScreen';
 
-const HomeStack = createStackNavigator({
-  Home: HomeScreen,
+const LoginStack = createStackNavigator({
+  Login: LoginScreen,
 });
 
-HomeStack.navigationOptions = {
+LoginStack.navigationOptions = {
   tabBarLabel: 'Home',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -25,12 +25,12 @@ HomeStack.navigationOptions = {
   ),
 };
 
-const LinksStack = createStackNavigator({
-  Links: LinksScreen,
+const MapStack = createStackNavigator({
+  Map: MapScreen,
 });
 
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+MapStack.navigationOptions = {
+  tabBarLabel: 'Map',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -39,12 +39,12 @@ LinksStack.navigationOptions = {
   ),
 };
 
-// const SettingsStack = createStackNavigator({
-//   Settings: SettingsScreen,
+// const ReportStack = createStackNavigator({
+//   Report: ReportScreen,
 // });
 
-// SettingsStack.navigationOptions = {
-//   tabBarLabel: 'Settings',
+// ReportStack.navigationOptions = {
+//   tabBarLabel: 'Report',
 //   tabBarIcon: ({ focused }) => (
 //     <TabBarIcon
 //       focused={focused}
@@ -54,7 +54,7 @@ LinksStack.navigationOptions = {
 // };
 
 export default createBottomTabNavigator({
-  HomeStack,
-  LinksStack,
+  LoginStack,
+  MapStack,
   // SettingsStack,
 });

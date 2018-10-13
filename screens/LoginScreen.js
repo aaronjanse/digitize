@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { StyleSheet,Text,TouchableOpacity, Button, View,TextInput, AsyncStorage} from 'react-native';
+import { Alert, StyleSheet,Text,TouchableOpacity, Button, View,TextInput, AsyncStorage} from 'react-native';
 import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
@@ -11,34 +11,40 @@ export default class HomeScreen extends React.Component {
       name: '',
       number: ''
     }
+    this.handlePress = this.handlePress.bind(this)
+    this.redirect = this.redirect.bind(this)
   }
 
-  handlePress() {
+  static navigationOptions = {
+    header: null,
+  };
+
+  async handlePress() {
+    let {name, number} = this.state
     try {
-      await AsyncStorage.setItem('@MySuperStore:key', 'I like to save it.');
+      await AsyncStorage.setItem('name', name);
+      await AsyncStorage.setItem('number', number);
+      this.redirect()
    } catch (error) {
-     // Error saving data
+     console.log(error)
+     Alert.alert("error")
    }
   }
 
   async componentWillMount(){
     try {
-      const value = await AsyncStorage.getItem('data');
+      const value = await AsyncStorage.getItem('name');
     if (value !== null) {
-      redirect()
+      this.redirect()
     }
    } catch (error) {
-     // Error retrieving data
+     console.log(error)
    }
   }
 
   redirect(){
     this.props.navigation.navigate('MapScreen')
   }
-
-  static navigationOptions = {
-    header: null,
-  };
 
   render() {
     return (

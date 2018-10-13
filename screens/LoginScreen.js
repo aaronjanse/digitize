@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Image,Platform,ScrollView,StyleSheet,Text,TouchableOpacity,View, TextInput} from 'react-native';
+import { StyleSheet,Text,TouchableOpacity, Button, View,TextInput, AsyncStorage} from 'react-native';
 import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
@@ -13,15 +13,22 @@ export default class HomeScreen extends React.Component {
     }
   }
 
+  handlePress(){
+    
+  }
+
+
+
   static navigationOptions = {
     header: null,
   };
 
   render() {
     return (
-      <View>
-        <TextInput />
-        <TextInput />
+      <View style={styles.container}>
+        <TextInput value={this.state.name} placeholder="John Smith"/>
+        <TextInput value={this.state.number} placeholder="#"/>
+        <Button title="Get Started" onPress={this.handlePress}     />
       </View>
     );
   }
@@ -30,8 +37,15 @@ export default class HomeScreen extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    display: flex,
+    justifyContent: center,
+    alignItems: center,
     backgroundColor: '#fff',
   },
+  input {
+    height: 20,
+    width: 130,
+    border: 1 solid black,
+  }
 
 });

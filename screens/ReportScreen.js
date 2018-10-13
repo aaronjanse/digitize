@@ -18,13 +18,7 @@ export default class SettingsScreen extends Component {
     title: 'Create Report',
   };
 
-  state = {
-    description: ''
-  }
-
   render() {
-    /* Go ahead and delete ExpoConfigView and replace it with your
-     * content, we just wanted to give you a quick view of your config */
     return (
       <View style={styles.container}>
         <TextInput value={this.state.description} placeholder="Description"/>

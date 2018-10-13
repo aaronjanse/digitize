@@ -3,6 +3,18 @@ import { Button, Platform, View, TextInput, StyleSheet } from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
 import { Constants, Location, Permissions } from 'expo';
 
+import firebase from 'firebase';
+import 'firebase/firestore';
+
+var firebaseConfig = {
+  apiKey: "AIzaSyDhPkHYe62XDScfsbTp3ifP910YK32rGhA",
+  authDomain: "digitize-hackathon.firebaseapp.com",
+  databaseURL: "https://digitize-hackathon.firebaseio.com",
+  projectId: "digitize-hackathon",
+  storageBucket: "digitize-hackathon.appspot.com",
+  messagingSenderId: "328433288607"
+};
+
 export default class ReportScreen extends Component {
   constructor(props){
     super(props)
@@ -24,7 +36,31 @@ export default class ReportScreen extends Component {
       ),
       headerRight: (
         <Button
-          onPress={() => _handleSubmit()}
+          onPress={() => {
+            var description = 'abcdef'
+            var latitude = 0;
+            var longitude = 0;
+
+            console.log("sumbitting")
+          
+            var app = firebase.initializeApp(firebaseConfig)
+            var db = app.firestore()
+
+            db.settings({ timestampsInSnapshots: true }) // fix deprecation error
+          
+            db.collection("reports").add({
+                description: description,
+                location: [latitude, longitude],
+                date: new Date(),
+            })
+            .then(function(docRef) {
+                console.log("Document written with ID: ", docRef.id);
+                navigation.navigate('Map')
+            })
+            .catch(function(error) {
+                console.error("Error adding document: ", error);
+            });
+          }}
           title="Submit"
           color="#007AFF"
         />

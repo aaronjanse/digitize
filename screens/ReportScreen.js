@@ -10,10 +10,7 @@ export default class SettingsScreen extends Component {
     this.state = {
       title: '',
       description: '',
-      location : {
-        latitude: '',
-        longitude: ''
-      }
+      location : null
     }
   }
 
@@ -48,23 +45,30 @@ export default class SettingsScreen extends Component {
   }
 
   _getLocationAsync = async () => {
-    let { status } = await Permissions.askAsync(Permissions.LOCATION);
-    if (status !== 'granted') {
-      this.setState({
-        errorMessage: 'Permission to access location was denied',
-      });
-    }
     let location = await Location.getCurrentPositionAsync({});
-    let {coords} = location;
-    let {latitude, longitude} = coords;
-    this.setState({latitude, longitude});
+    this.setState({ location });
   };
 
   render() {
+    let latitude = 0;
+    let longitude = 0;
+    if (this.state.location) {
+      latitude = this.state.location.coords.latitude;
+      longitude = this.state.location.coords.longitude;
+    }
     return (
       <View style={styles.container}>
         <TextInput placeholder="Title"/>
-        <TextInput value={this.state.description} placeholder="Description"/>
+        <TextInput multiline={true} value={this.state.description} placeholder="Description"/>
+        <MapView
+          style={styles.map}
+          region={{
+            latitude: latitude,
+            longitude: longitude,
+            latitudeDelta: 0.1,
+            longitudeDelta: 0.1,
+          }}>
+        </MapView>
         <Button title="Report"/>
       </View>
     );
@@ -85,5 +89,9 @@ const styles = StyleSheet.create({
   },
   button: {
 
+  },
+  map: {
+    width: 200,
+    height: 100
   }
 });

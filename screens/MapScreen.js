@@ -46,8 +46,8 @@ export default class LinksScreen extends React.Component {
 
 
   render() {
-    var latitude = 0;
-    var longitude = 0;
+    let latitude = 0;
+    let longitude = 0;
     if (this.state.location) {
       latitude = this.state.location.coords.latitude;
       longitude = this.state.location.coords.longitude;

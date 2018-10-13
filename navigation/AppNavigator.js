@@ -1,5 +1,4 @@
-import React from 'react';
-import { SwitchNavigator, StackNavigator } from 'react-navigation';
+import { createSwitchNavigator, createStackNavigator } from 'react-navigation';
 
 
 import LoginScreen from '../screens/LoginScreen';
@@ -9,12 +8,12 @@ import ReportScreen from '../screens/ReportScreen';
 // import MainTabNavigator from './MainTabNavigator';
 
 
-const AppStack = StackNavigator({ Map: MapScreen,
+const AppStack = createStackNavigator({ Map: MapScreen,
   Report: ReportScreen,
 });
 
 
-export default SwitchNavigator(
+export default createSwitchNavigator(
   {
     Main: LoginScreen,
     App: AppStack

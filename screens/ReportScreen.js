@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Button, Platform, View, TextInput, StyleSheet } from 'react-native';
-import {MapView, Marker} from 'react-native-maps';
+import MapView, {Marker} from 'react-native-maps';
 import { Constants, Location, Permissions } from 'expo';
 
 export default class SettingsScreen extends Component {
@@ -48,8 +48,8 @@ export default class SettingsScreen extends Component {
   };
 
   render() {
-    let latitude = 0;
-    let longitude = 0;
+    var latitude = 0;
+    var longitude = 0;
     if (this.state.location) {
       latitude = this.state.location.coords.latitude;
       longitude = this.state.location.coords.longitude;

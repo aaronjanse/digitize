@@ -1,13 +1,12 @@
 import React, {Component} from 'react';
 import { Button, Platform, View, TextInput, StyleSheet } from 'react-native';
-import MapView from 'react-native-maps';
+import {MapView, Marker} from 'react-native-maps';
 import { Constants, Location, Permissions } from 'expo';
 
 export default class SettingsScreen extends Component {
   constructor(props){
     super(props)
     this.state = {
-      title: '',
       description: '',
       location : null
     }
@@ -57,21 +56,28 @@ export default class SettingsScreen extends Component {
     }
     return (
       <View style={styles.container}>
-        <TextInput placeholder="Title"/>
-        <TextInput multiline={true} value={this.state.description} placeholder="Description"/>
+        <TextInput multiline={true} onChangeText={(description) => this.setState({description})}
+            value={this.state.description} placeholder="Description... "/>
         <MapView
           style={styles.map}
           region={{
             latitude: latitude,
             longitude: longitude,
             latitudeDelta: 0.1,
-            longitudeDelta: 0.1,
+            longitudeDelta: 0.1
           }}>
+
         </MapView>
       </View>
     );
   }
 }
+
+//     <Marker
+// coordinate={{latitude: latitude,longitude: longitude}}
+// title='title'
+// description='description'
+// />
 
 
 const styles = StyleSheet.create({

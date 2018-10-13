@@ -1,17 +1,18 @@
 import React from 'react';
-import { Platform } from 'react-native';
+import { Platform, Button } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
 import LoginScreen from '../screens/LoginScreen';
 import MapScreen from '../screens/MapScreen';
-// import ReportScreen from '../screens/ReportScreen';
+import ReportScreen from '../screens/ReportScreen';
 
 const LoginStack = createStackNavigator({
   Login: LoginScreen,
 });
 
 LoginStack.navigationOptions = {
+  // tabBarVisible: false,
   tabBarLabel: 'Home',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -39,22 +40,22 @@ MapStack.navigationOptions = {
   ),
 };
 
-// const ReportStack = createStackNavigator({
-//   Report: ReportScreen,
-// });
+const ReportStack = createStackNavigator({
+  Report: ReportScreen,
+});
 
-// ReportStack.navigationOptions = {
-//   tabBarLabel: 'Report',
-//   tabBarIcon: ({ focused }) => (
-//     <TabBarIcon
-//       focused={focused}
-//       name={Platform.OS === 'ios' ? `ios-options${focused ? '' : '-outline'}` : 'md-options'}
-//     />
-//   ),
-// };
+ReportStack.navigationOptions = {
+  tabBarLabel: 'Report',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? `ios-options${focused ? '' : '-outline'}` : 'md-options'}
+    />
+  ),
+};
 
 export default createBottomTabNavigator({
   LoginStack,
   MapStack,
-  // SettingsStack,
+  ReportStack,
 });

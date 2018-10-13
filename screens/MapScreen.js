@@ -1,11 +1,21 @@
 import React from 'react';
-import { Platform, View, StyleSheet } from 'react-native';
+import { Platform, View, StyleSheet, Button, Text, StatusBar } from 'react-native';
 import MapView from 'react-native-maps';
 import { Constants, Location, Permissions } from 'expo';
 
 export default class LinksScreen extends React.Component {
-  static navigationOptions = {
-    title: 'Links',
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: 'Links',
+      headerTitle: <Text>Map</Text>,
+      headerRight: (
+        <Button
+          onPress={() => navigation.navigate('Report')}
+          title="Report"
+          color="#0000ff"
+        />
+      ),
+    };
   };
 
   state = {
@@ -48,6 +58,7 @@ export default class LinksScreen extends React.Component {
     }
     return (
       <View style={styles.container}>
+         <StatusBar barStyle="default" />
         <MapView
           style={styles.map}
           region={{

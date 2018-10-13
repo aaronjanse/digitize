@@ -8,7 +8,6 @@ export default class SettingsScreen extends Component {
   constructor(props){
     super(props)
     this.state = {
-      title: '',
       description: '',
       location : null
     }
@@ -58,7 +57,6 @@ export default class SettingsScreen extends Component {
     }
     return (
       <View style={styles.container}>
-        <TextInput placeholder="Title"/>
         <TextInput multiline={true} value={this.state.description} placeholder="Description"/>
         <MapView
           style={styles.map}

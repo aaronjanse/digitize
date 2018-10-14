@@ -73,17 +73,7 @@ export default class LoginScreen extends React.Component {
                   color='blue'
                   />
                 }
-            buttonStyle={{
-                backgroundColor: "rgba(92,99,216,1)",
-                width: 200,
-                height: 45,
-                borderColor: "white",
-                marginTop: 20,
-                borderWidth: 0,
-                borderRadius: 5,
-                justifyContent: 'center',
-                alignItems: 'center'
-              }}
+            buttonStyle={styles.button}
                 title='GET STARTED'
                 onPress={this.handlePress}
                 />
@@ -111,6 +101,17 @@ const styles = StyleSheet.create({
     color: 'white',
     height: 35,
     width: 260,
+  },
+  button: {
+    backgroundColor: "rgba(92,99,216,1)",
+    width: 200,
+    height: 45,
+    borderColor: "white",
+    marginTop: 20,
+    borderWidth: 0,
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   text: {
     width: 300,

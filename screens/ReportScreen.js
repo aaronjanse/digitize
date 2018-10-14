@@ -119,11 +119,11 @@ export default class ReportScreen extends Component {
             latitudeDelta: 0.005,
             longitudeDelta: 0.005
           }}>
-              <Marker
-          coordinate={{latitude: this.state.latitude, longitude: this.state.longitude}}
-          title='Roadkill Report'
-          image={require('../assets/images/marker.png')}
-          description='Your current report'
+          <Marker
+            coordinate={{latitude: this.state.latitude, longitude: this.state.longitude}}
+            title='Roadkill Report'
+            image={require('../assets/images/marker.png')}
+            description='Your current report'
           />
         </MapView>
       </View>

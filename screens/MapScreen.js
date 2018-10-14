@@ -111,7 +111,7 @@ export default class MapScreen extends React.Component {
               <View style={styles.box}>
                 <ScrollView style={{flexBasis: '60%'}}>
                   <Text style={{fontWeight: 'bold'}}> {title} </Text>
-                  <Text> Reported by: {name} on {new Date(date.seconds*1000).toString().substring(0,24)}</Text>
+                  <Text> Reported by: {name.split(' ')[0]} on {new Date(date.seconds*1000).toString().substring(0,24)}</Text>
                   <Text> {description} </Text>
                 </ScrollView>
                 <Image style={styles.img} source={{uri: `data:image/gif;base64,${base64}`}}/>

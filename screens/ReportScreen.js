@@ -122,6 +122,7 @@ export default class ReportScreen extends Component {
               <Marker
           coordinate={{latitude: this.state.latitude, longitude: this.state.longitude}}
           title='Roadkill Report'
+          image={require('../assets/images/marker.png')}
           description='Your current report'
           />
         </MapView>
@@ -138,7 +139,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   input: {
-    height: 170,
+    height: 120,
     width: '85%',
     borderWidth: 1,
     borderColor: 'black',

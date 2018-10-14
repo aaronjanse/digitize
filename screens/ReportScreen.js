@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   input: {
-    height: 170,
+    height: 120,
     width: '85%',
     borderWidth: 1,
     borderColor: 'black',

@@ -92,6 +92,7 @@ export default class MapScreen extends React.Component {
             coordinate={{latitude: location[0], longitude: location[1]}}
             title="roadkill"
             description={description}
+            image={require('../assets/images/marker.png')}
           />
         ))}
         </MapView>

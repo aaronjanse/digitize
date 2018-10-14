@@ -90,7 +90,7 @@ export default class MapScreen extends React.Component {
           <Marker
             key={id}
             coordinate={{latitude: location[0], longitude: location[1]}}
-            title="roadkill"
+            title={description}
             description={description}
           />
         ))}

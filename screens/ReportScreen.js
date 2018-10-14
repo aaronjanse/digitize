@@ -96,15 +96,12 @@ export default class ReportScreen extends Component {
       return <View />;
     } else if (hasCameraPermission === false) {
       console.error('no camera permission')
-    } 
-  
+    }
+
     return (
       <View style={styles.container}>
-<<<<<<< HEAD
-        <Text style={{marginLeft: '7.5%', fontSize: 17}}>Report Information</Text>
-        <TextInput placeholder="report title ie 'Dead Raccoon' "style={styles.title} onChangeText={(title) => this.props.navigation.setParams({title})}/>
-=======
-        <Text style={{textAlign: 'center', fontSize: 19}}> Brief Description of Roadkill Incident </Text>
+      <Text style={{marginLeft: '7.5%', fontSize: 17}}>Report Information</Text>
+      <TextInput placeholder="report title ie 'Dead Raccoon' "style={styles.title} onChangeText={(title) => this.props.navigation.setParams({title})}/>
         <Camera style={{ flex: 1 }} type={Camera.Constants.Type.back}>
             <View
               style={{
@@ -114,7 +111,6 @@ export default class ReportScreen extends Component {
               }}>
             </View>
           </Camera>
->>>>>>> b33cb5fd6e11980b2e144eaadaf24047195de0f9
         <TextInput style={styles.input} multiline={true} onChangeText={(description) => this.props.navigation.setParams({description})}
             value={this.state.description} placeholder="Description... "/>
         <Text style={{marginLeft: '7.5%', fontSize: 17}}> Incident Location </Text>

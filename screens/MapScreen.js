@@ -86,11 +86,11 @@ export default class MapScreen extends React.Component {
             longitudeDelta: 0.121,
           }}
         >
-        {this.state.markerData.map(({id, name, description, location, date}) => (
+        {this.state.markerData.map(({id, name, description, title, location, date}) => (
           <Marker
             key={id}
             coordinate={{latitude: location[0], longitude: location[1]}}
-            title={description}
+            title={title}
             description={description}
             image={require('../assets/images/marker.png')}
           />

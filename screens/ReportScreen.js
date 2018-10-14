@@ -32,6 +32,7 @@ export default class ReportScreen extends Component {
             let latitude = navigation.getParam('latitude')
             let longitude = navigation.getParam('longitude')
             let name = navigation.getParam('name')
+            let title = navigation.getParam('title')
 
             console.log("submitting")
             let db = FirebaseManager.getInstance().getDB()
@@ -40,7 +41,8 @@ export default class ReportScreen extends Component {
                 description: description,
                 location: [latitude, longitude],
                 date: new Date(),
-                name: name
+                name: name,
+                title: title
             })
             .then(function(docRef) {
                 console.log("Document written with ID: ", docRef.id);
@@ -89,10 +91,11 @@ export default class ReportScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={{textAlign: 'center', fontSize: 19}}> Brief Description of Roadkill Incident </Text>
+        <Text style={{marginLeft: '7.5%', fontSize: 17}}>Report Information</Text>
+        <TextInput placeholder="report title ie 'Dead Raccoon' "style={styles.title} onChangeText={(title) => this.props.navigation.setParams({title})}/>
         <TextInput style={styles.input} multiline={true} onChangeText={(description) => this.props.navigation.setParams({description})}
             value={this.state.description} placeholder="Description... "/>
-        <Text style={{marginLeft: '7.5%'}}> Incident Location </Text>
+        <Text style={{marginLeft: '7.5%', fontSize: 17}}> Incident Location </Text>
         <MapView
           style={styles.map}
           region={{
@@ -127,6 +130,15 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     borderRadius: 4,
     marginBottom: 25,
+    padding: 8
+  },
+  title: {
+    height: 40,
+    width: '85%',
+    borderWidth: 1,
+    borderColor: 'black',
+    borderRadius: 4,
+    marginBottom: 5,
     padding: 8
   },
   map: {

@@ -34,6 +34,13 @@ export default class ReportScreen extends Component {
             let longitude = navigation.getParam('longitude')
             let name = navigation.getParam('name')
             let title = navigation.getParam('title')
+            let base64;
+            try {
+              base64 = navigation.getParam('base64')
+            } catch(e){
+              base64 = ''
+            }
+
 
             console.log("submitting")
             let db = FirebaseManager.getInstance().getDB()
@@ -43,7 +50,8 @@ export default class ReportScreen extends Component {
                 location: [latitude, longitude],
                 date: new Date(),
                 name: name,
-                title: title
+                title: title,
+                base64: base64
             })
             .then(function(docRef) {
                 console.log("Document written with ID: ", docRef.id);
@@ -108,49 +116,11 @@ export default class ReportScreen extends Component {
         aspect: [4, 3],
         base64: true
       });
+      console.log(pickerResult)
 
-      this._handleImagePicked(pickerResult);
+      this.props.navigation.setParams({base64: pickerResult.base64})
     }
   };
-
-  _handleImagePicked = async pickerResult => {
-      console.log(pickerResult)
-      console.log(pickerResult.uri)
-      let source = {
-        uri: pickerResult.uri
-      }
-      this.setState({source})
-      // var str = await Expo.FileSystem.readAsStringAsync(fileUri)
-      // var dataURI = 'data:image/jpg;base64,'+new Buffer(str).toString('base64')
-      // console.log(dataURI)
-      //let uploadResponse, uploadResult;
-
-      // try {
-      //   this.setState({
-      //     uploading: true
-      //   });
-      //
-      //   if (!pickerResult.cancelled) {
-      //     uploadResponse = await uploadImageAsync(pickerResult.uri);
-      //     uploadResult = await uploadResponse.json();
-      //
-      //     this.setState({
-      //       image: uploadResult.location
-      //     });
-      //     console.log(uploadResult.location)
-      //   }
-      // } catch (e) {
-      //   console.log({ uploadResponse });
-      //   console.log({ uploadResult });
-      //   console.log({ e });
-      //   alert('Upload failed, sorry :(');
-      // } finally {
-      //   this.setState({
-      //     uploading: false
-      //   });
-      // }
-    };
-
 
   render() {
     return (
@@ -158,11 +128,9 @@ export default class ReportScreen extends Component {
       <Text style={{marginLeft: '7.5%', fontSize: 17}}>Report Information</Text>
       <TextInput placeholder="report title ie 'Dead Raccoon' "style={styles.title} onChangeText={(title) => this.props.navigation.setParams({title})}/>
 
-      {!this.state.source==='' ? <Image source={this.state.source} style={{width: 150, height: 150}}/> : null }
-
         <TextInput style={styles.input} multiline={true} onChangeText={(description) => this.props.navigation.setParams({description})}
             value={this.state.description} placeholder="Description... "/>
-        <Button title="Take Image" onPress={()=> this._takePhoto()}/>
+        <Button title="Take Image (Optional)" onPress={()=> this._takePhoto()}/>
         <Text style={{marginLeft: '7.5%', fontSize: 17}}> Incident Location </Text>
         <MapView
           style={styles.map}

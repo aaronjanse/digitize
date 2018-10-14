@@ -43,8 +43,6 @@ export default class MapScreen extends React.Component {
           // console.log(doc.id);
           // console.log(doc.data());
           let obj = {id: doc.id, ...doc.data()}
-          console.log('firebase:')
-          console.log(obj)
           markers.push(obj)
       });
       this.setState({markerData: markers})
@@ -95,7 +93,7 @@ export default class MapScreen extends React.Component {
             <Callout key={id}>
               <View>
                 <Text> {title} </Text>
-                <Text> Reported by: {name.split('')[0]} on {date.toString()}</Text>
+                <Text> Reported by: {name.split('')[0]} on {new Date(date.seconds*1000).toString()}</Text>
                 <Text> {description} </Text>
                 <Image source={{uri: `data:image/gif;base64,${base64}`}}/>
                 </View>

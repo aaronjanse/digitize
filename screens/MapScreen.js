@@ -38,15 +38,17 @@ export default class MapScreen extends React.Component {
     var db = FirebaseManager.getInstance().getDB()
 
     db.collection("reports").get().then((querySnapshot) => {
+      markers = []
       querySnapshot.forEach((doc) => {
           // console.log(doc.id);
           // console.log(doc.data());
-          let obj = doc.data()
-          this.setState((prevState)=>{
-            prevState.markerData.push(obj)
-          })
+          let obj = {id: doc.id, ...doc.data()}
+          console.log('firebase:')
+          console.log(obj)
+          markers.push(obj)
       });
-     });
+      this.setState({markerData: markers})
+    });
   }
 
   _getLocationAsync = async () => {
@@ -72,13 +74,6 @@ export default class MapScreen extends React.Component {
     if (this.state.errorMessage) {
       console.error(this.state.errorMessage)
     }
-    let markers = this.state.markerData.map(({name, description, location, date})=>{
-      return <Marker
-      coordinate={{latitude: this.state.location.latitude, longitude: this.state.location.longitude}}
-      title='Roadkill'
-      description={description}
-        />
-    })
     return (
       <View style={styles.container}>
          <StatusBar barStyle="default" />
@@ -91,11 +86,14 @@ export default class MapScreen extends React.Component {
             longitudeDelta: 0.121,
           }}
         >
-        <Marker
-          coordinate={{latitude: latitude, longitude: longitude}}
-          title='Roadkill'
-          description="Oh no"
-        />
+        {this.state.markerData.map(({id, name, description, location, date}) => (
+          <Marker
+            key={id}
+            coordinate={{latitude: location[0], longitude: location[1]}}
+            title="roadkill"
+            description={description}
+          />
+        ))}
         </MapView>
       </View>
     );

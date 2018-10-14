@@ -8,7 +8,7 @@ import FirebaseManager from './Firebase';
 export default class MapScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: 'Map',
+      title: 'Local Map',
       headerRight: (
         <Button
           onPress={() => navigation.navigate('Report')}

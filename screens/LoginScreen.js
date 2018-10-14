@@ -59,8 +59,8 @@ export default class LoginScreen extends React.Component {
                  source={{uri: 'https://images.unsplash.com/photo-1529567186287-3e17bdefa342?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6bae897db75ab4c28184b94b73ccfec0&w=1000&q=80'}}>
         <View style={styles.text}>
           <View style={styles.text}>
-            <Text style={{textAlign: 'center', fontSize: 35, color: 'white', marginBottom: 10}}> Welcome to EnviroReport</Text>
-            <Text style={{textAlign: 'center', fontSize: 20, color: 'white', marginBottom: 0}}> Please enter a few details about you to continue</Text>
+            <Text style={{textAlign: 'center', fontSize: 35, color: 'white', marginBottom: 25}}> Welcome to RoadKillAlert</Text>
+            <Text style={{textAlign: 'center', fontSize: 25, color: 'white', marginBottom: 0}}> Please enter a few details</Text>
           </View>
           <TextInput style={styles.input} value={this.state.name} onChangeText={(name) => this.setState({name})} placeholder="First Last" placeholderTextColor="white"/>
           <TextInput style={styles.input} value={this.state.number} onChangeText={(number) => this.setState({number})} placeholder="Phone Number" placeholderTextColor="white"/>
@@ -103,17 +103,18 @@ const styles = StyleSheet.create({
     opacity: 1000,
   },
   input: {
-    marginBottom: 0,
+    marginBottom: 15,
+    marginTop: 0,
     borderBottomColor: 'rgba(255,255,255, 1)',
     borderBottomWidth: 1.5,
-    fontSize: 16,
+    fontSize: 18,
     color: 'white',
     height: 35,
     width: 260,
   },
   text: {
     width: 300,
-    marginBottom: 30,
+    marginBottom: 15,
     alignItems: 'center',
     justifyContent: 'center'
   }

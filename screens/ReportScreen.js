@@ -81,8 +81,9 @@ export default class ReportScreen extends Component {
     }
 
     try {
-      const name = await AsyncStorage.getItem('name');
-    if (value !== null) {
+      let name = await AsyncStorage.getItem('name');
+      console.log(name)
+    if (name !== null) {
       this.props.navigation.setParams({name})
     }
    } catch (error) {

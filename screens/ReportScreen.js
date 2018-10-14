@@ -30,8 +30,7 @@ export default class ReportScreen extends Component {
         <Button
           onPress={() => {
             let description = navigation.getParam('description')
-            let latitude = navigation.getParam('latitude')
-            let longitude = navigation.getParam('longitude')
+            let {latitude, longitude} = navigation.getParam('location')
             let name = navigation.getParam('name')
             let title = navigation.getParam('title')
             let base64;
@@ -99,8 +98,7 @@ export default class ReportScreen extends Component {
     let latitude = location.coords.latitude;
     let longitude = location.coords.longitude;
     this.setState({ latitude, longitude });
-    this.props.navigation.setParams({latitude})
-    this.props.navigation.setParams({longitude})
+    this.props.navigation.setParams({location: {latitude, longitude}})
   };
 
   _takePhoto = async () => {
@@ -143,8 +141,9 @@ export default class ReportScreen extends Component {
             latitudeDelta: 0.005,
             longitudeDelta: 0.005
           }}>
-          <Marker
+          <Marker draggable
             coordinate={{latitude: this.state.latitude, longitude: this.state.longitude}}
+            onDragEnd={(e) => this.props.navigation.setParams({location: e.nativeEvent.coordinate})}
             image={require('../assets/images/marker.png')}
           >
             <Callout>

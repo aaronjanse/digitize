@@ -34,19 +34,6 @@ export default class MapScreen extends React.Component {
     } else {
       this._getLocationAsync();
     }
-
-    var db = FirebaseManager.getInstance().getDB()
-
-    db.collection("reports").get().then((querySnapshot) => {
-      markers = []
-      querySnapshot.forEach((doc) => {
-          // console.log(doc.id);
-          // console.log(doc.data());
-          let obj = {id: doc.id, ...doc.data()}
-          markers.push(obj)
-      });
-      this.setState({markerData: markers})
-    });
   }
 
   _getLocationAsync = async () => {
@@ -63,6 +50,25 @@ export default class MapScreen extends React.Component {
 
 
   render() {
+    var fb = FirebaseManager.getInstance()
+
+    if (fb.getNeedsUpdate()) {
+      var db = fb.getDB()
+
+      db.collection("reports").get().then((querySnapshot) => {
+        markers = []
+        querySnapshot.forEach((doc) => {
+            // console.log(doc.id);
+            // console.log(doc.data());
+            let obj = {id: doc.id, ...doc.data()}
+            markers.push(obj)
+        });
+        this.setState({markerData: markers})
+      });
+
+      fb.setNeedsUpdate(false)
+    }
+
     let latitude = 0;
     let longitude = 0;
     if (this.state.location) {

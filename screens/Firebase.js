@@ -15,6 +15,7 @@ export default class FirebaseManager {
     static myInstance = null;
 
     _db = "";
+    _needsUpdate = true;
 
     constructor() {
         var app = firebase.initializeApp(firebaseConfig)
@@ -39,5 +40,13 @@ export default class FirebaseManager {
 
     getDB() {
         return this._db;
+    }
+
+    getNeedsUpdate() {
+        return this._needsUpdate;
+    }
+
+    setNeedsUpdate(val) {
+        this._needsUpdate = val;
     }
 }

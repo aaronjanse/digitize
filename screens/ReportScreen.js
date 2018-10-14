@@ -36,7 +36,7 @@ export default class ReportScreen extends Component {
             let title = navigation.getParam('title')
             let base64;
             try {
-              base64 = navigation.getParam('base64')
+              base64 = navigation.getParam('base64') || ''
             } catch(e){
               base64 = ''
             }
@@ -55,6 +55,9 @@ export default class ReportScreen extends Component {
             })
             .then(function(docRef) {
                 console.log("Document written with ID: ", docRef.id);
+
+                FirebaseManager.getInstance().setNeedsUpdate(true)
+
                 navigation.navigate('Map')
             })
             .catch(function(error) {

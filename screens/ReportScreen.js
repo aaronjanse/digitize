@@ -80,8 +80,8 @@ export default class ReportScreen extends Component {
 
   _getLocationAsync = async () => {
     let location = await Location.getCurrentPositionAsync({});
-    latitude = location.coords.latitude;
-    longitude = location.coords.longitude;
+    var latitude = location.coords.latitude;
+    var longitude = location.coords.longitude;
     this.setState({ latitude, longitude });
     this.props.navigation.setParams({latitude})
     this.props.navigation.setParams({longitude})
@@ -102,7 +102,7 @@ export default class ReportScreen extends Component {
             longitudeDelta: 0.005
           }}>
               <Marker
-          coordinate={{latitude: latitude,longitude: longitude}}
+          coordinate={{latitude: this.state.latitude, longitude: this.state.longitude}}
           title='title'
           description='description'
           />

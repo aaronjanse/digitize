@@ -10,8 +10,7 @@ export default class ReportScreen extends Component {
     super(props)
     this.state = {
       description: '',
-      location : null,
-      name: ''
+      location : null
     }
   }
 
@@ -31,15 +30,7 @@ export default class ReportScreen extends Component {
             let description = navigation.getParam('description')
             let latitude = navigation.getParam('latitude')
             let longitude = navigation.getParam('longitude')
-            let name = ''
-
-
-            const value =  AsyncStorage.getItem('name');
-            if (value !== null) {
-              name = value
-            } else {
-              name = 'no name'
-            }
+            let name = navigation.getParam('name')
 
             console.log("submitting")
 
@@ -78,10 +69,10 @@ export default class ReportScreen extends Component {
     try {
       const name = await AsyncStorage.getItem('name');
     if (value !== null) {
-      this.setState({name})
+      this.props.navigation.setParams({name})
     }
    } catch (error) {
-     this.setState({name: 'no author'})
+     this.props.navigation.setParams({name:'no name'})
    }
 
   }

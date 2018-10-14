@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import { Text, Button, Platform, View, TextInput, StyleSheet, AsyncStorage } from 'react-native';
+import { Text, Button, Platform, View, TextInput, StyleSheet, AsyncStorage, TouchableOpacity } from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
-import { Constants, Location, Permissions } from 'expo';
+import { Camera, Constants, Location, Permissions } from 'expo';
 
 import FirebaseManager from './Firebase';
 
@@ -77,6 +77,8 @@ export default class ReportScreen extends Component {
      this.props.navigation.setParams({name:'no name'})
    }
 
+   const { status } = await Permissions.askAsync(Permissions.CAMERA);
+   this.setState({ hasCameraPermission: status === 'granted' });
   }
 
   _getLocationAsync = async () => {
@@ -89,10 +91,30 @@ export default class ReportScreen extends Component {
   };
 
   render() {
+    const { hasCameraPermission } = this.state;
+    if (hasCameraPermission === null) {
+      return <View />;
+    } else if (hasCameraPermission === false) {
+      console.error('no camera permission')
+    } 
+  
     return (
       <View style={styles.container}>
+<<<<<<< HEAD
         <Text style={{marginLeft: '7.5%', fontSize: 17}}>Report Information</Text>
         <TextInput placeholder="report title ie 'Dead Raccoon' "style={styles.title} onChangeText={(title) => this.props.navigation.setParams({title})}/>
+=======
+        <Text style={{textAlign: 'center', fontSize: 19}}> Brief Description of Roadkill Incident </Text>
+        <Camera style={{ flex: 1 }} type={Camera.Constants.Type.back}>
+            <View
+              style={{
+                flex: 1,
+                backgroundColor: 'transparent',
+                flexDirection: 'row',
+              }}>
+            </View>
+          </Camera>
+>>>>>>> b33cb5fd6e11980b2e144eaadaf24047195de0f9
         <TextInput style={styles.input} multiline={true} onChangeText={(description) => this.props.navigation.setParams({description})}
             value={this.state.description} placeholder="Description... "/>
         <Text style={{marginLeft: '7.5%', fontSize: 17}}> Incident Location </Text>
@@ -104,11 +126,11 @@ export default class ReportScreen extends Component {
             latitudeDelta: 0.005,
             longitudeDelta: 0.005
           }}>
-              <Marker
-          coordinate={{latitude: this.state.latitude, longitude: this.state.longitude}}
-          title='Roadkill Report'
-          image={require('../assets/images/marker.png')}
-          description='Your current report'
+          <Marker
+            coordinate={{latitude: this.state.latitude, longitude: this.state.longitude}}
+            title='Roadkill Report'
+            image={require('../assets/images/marker.png')}
+            description='Your current report'
           />
         </MapView>
       </View>

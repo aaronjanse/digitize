@@ -74,7 +74,7 @@ export default class MapScreen extends React.Component {
     }
     let markers = this.state.markerData.map(({name, description, location, date})=>{
       return <Marker
-      coordinate={{latitude: location.latitude,longitude: location.longitude}}
+      coordinate={{latitude: this.state.location.latitude, longitude: this.state.location.longitude}}
       title='Roadkill'
       description={description}
         />

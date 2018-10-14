@@ -34,6 +34,17 @@ export default class MapScreen extends React.Component {
     } else {
       this._getLocationAsync();
     }
+
+    this.props.navigation.addListener(
+      'didFocus',
+      payload => {
+        this.forceUpdate();
+      }
+    );
+  }
+
+  componentWillReceiveProps(newProps) {
+    this.forceUpdate();
   }
 
   _getLocationAsync = async () => {

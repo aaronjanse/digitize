@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import { Alert, StyleSheet,Text,TouchableOpacity, Button, View,TextInput, AsyncStorage} from 'react-native';
+import { Button } from 'react-native-elements';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { Alert, StyleSheet,Text,TouchableOpacity, View,TextInput, AsyncStorage} from 'react-native';
 import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
@@ -33,6 +35,7 @@ export default class LoginScreen extends React.Component {
   }
 
   async componentWillMount(){
+    AsyncStorage.clear();
     try {
       const value = await AsyncStorage.getItem('name');
     if (value !== null) {
@@ -51,12 +54,31 @@ export default class LoginScreen extends React.Component {
     return (
         <View style={styles.container}>
           <View style={styles.text}>
-            <Text style={{textAlign: 'center', fontSize: 25, marginBottom: 5}}> Welcome to EnviroReport</Text>
+            <Text style={{textAlign: 'center', fontSize: 35, marginBottom: 10}}> Welcome to EnviroReport</Text>
             <Text style={{textAlign: 'center'}}> Please enter a few details about you to continue</Text>
           </View>
           <TextInput style={styles.input} value={this.state.name} onChangeText={(name) => this.setState({name})} placeholder="John Smith"/>
           <TextInput style={styles.input} value={this.state.number} onChangeText={(number) => this.setState({number})} placeholder="phone number"/>
-          <Button title="Get Started" onPress={this.handlePress}     />
+          <Button
+            icon={
+                <Icon
+                  name='arrow-right'
+                  size={15}
+                  color='blue'
+                  />
+                }
+            buttonStyle={{
+                backgroundColor: "rgba(92, 99,216, 1)",
+                width: 300,
+                height: 45,
+                borderColor: "transparent",
+                borderWidth: 0,
+                borderRadius: 5
+              }}
+
+                title='GET STARTED'
+                onPress={this.handlePress}
+                />
         </View>
     );
   }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Platform, View, StyleSheet, Button, Text, StatusBar } from 'react-native';
+import { ScrollView, Image, Platform, View, StyleSheet, Button, Text, StatusBar } from 'react-native';
 import MapView, {Marker, Callout} from 'react-native-maps';
 import { Constants, Location, Permissions } from 'expo';
 
@@ -97,11 +97,13 @@ export default class MapScreen extends React.Component {
             image={require('../assets/images/marker.png')}
           >
             <Callout key={id}>
-              <View>
-                <Text> {title} </Text>
-                <Text> Reported by: {name.split('')[0]} on {new Date(date.seconds*1000).toString()}</Text>
-                <Text> {description} </Text>
-                <Image source={{uri: `data:image/gif;base64,${base64}`}}/>
+              <View style={styles.box}>
+                <ScrollView style={{flexBasis: '60%'}}>
+                  <Text style={{fontWeight: 'bold'}}> {title} </Text>
+                  <Text> Reported by: {name.split('')[0]} on {new Date(date.seconds*1000).toString().substring(0,24)}</Text>
+                  <Text> {description} </Text>
+                </ScrollView>
+                <Image style={styles.img} source={{uri: `data:image/gif;base64,${base64}`}}/>
                 </View>
               </Callout>
           </Marker>
@@ -118,7 +120,14 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
+  box: {
+    flex: 1,
+    width: 200,
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
   img: {
+    flexBasis: '40%',
     height: 100,
     width: 100
   },

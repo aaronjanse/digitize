@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Button, Platform, View, TextInput, StyleSheet } from 'react-native';
+import { Text, Button, Platform, View, TextInput, StyleSheet, AsyncStorage } from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
 import { Constants, Location, Permissions } from 'expo';
 
@@ -10,7 +10,8 @@ export default class ReportScreen extends Component {
     super(props)
     this.state = {
       description: '',
-      location : null
+      location : null,
+      name: ''
     }
   }
 
@@ -27,18 +28,28 @@ export default class ReportScreen extends Component {
       headerRight: (
         <Button
           onPress={() => {
-            var description = navigation.getParam('description')
-            var latitude = 0;
-            var longitude = 0;
+            let description = navigation.getParam('description')
+            let latitude = navigation.getParam('latitude')
+            let longitude = navigation.getParam('longitude')
+            let name = ''
 
-            console.log("sumbitting")
-          
-            var db = FirebaseManager.getInstance().getDB()
-  
+
+            const value =  AsyncStorage.getItem('name');
+            if (value !== null) {
+              name = value
+            } else {
+              name = 'no name'
+            }
+
+            console.log("submitting")
+
+            let db = FirebaseManager.getInstance().getDB()
+
             db.collection("reports").add({
                 description: description,
                 location: [latitude, longitude],
                 date: new Date(),
+                name: name
             })
             .then(function(docRef) {
                 console.log("Document written with ID: ", docRef.id);
@@ -55,7 +66,7 @@ export default class ReportScreen extends Component {
     };
   };
 
-  componentWillMount() {
+  async componentWillMount() {
     if (Platform.OS === 'android' && !Constants.isDevice) {
       this.setState({
         errorMessage: 'Oops, this will not work on Sketch in an Android emulator. Try it on your device!',
@@ -63,6 +74,16 @@ export default class ReportScreen extends Component {
     } else {
       this._getLocationAsync();
     }
+
+    try {
+      const name = await AsyncStorage.getItem('name');
+    if (value !== null) {
+      this.setState({name})
+    }
+   } catch (error) {
+     this.setState({name: 'no author'})
+   }
+
   }
 
   _getLocationAsync = async () => {
@@ -71,16 +92,19 @@ export default class ReportScreen extends Component {
   };
 
   render() {
-    var latitude = 0;
-    var longitude = 0;
+    let latitude = 0;
+    let longitude = 0;
     if (this.state.location) {
       latitude = this.state.location.coords.latitude;
       longitude = this.state.location.coords.longitude;
+      this.props.navigation.setParams({latitude})
+      this.props.navigation.setParams({longitude})
     }
     return (
       <View style={styles.container}>
         <TextInput style={styles.input} multiline={true} onChangeText={(description) => this.props.navigation.setParams({description})}
             value={this.state.description} placeholder="Description... "/>
+        <Text style={{marginLeft: '7.5%'}}> Incident Location </Text>
         <MapView
           style={styles.map}
           region={{
@@ -113,7 +137,8 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#d14817',
     borderRadius: 4,
-    marginBottom: 25
+    marginBottom: 25,
+    padding: 8
   },
   map: {
     width: '85%',

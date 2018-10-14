@@ -1,6 +1,6 @@
 import React from 'react';
 import { Platform, View, StyleSheet, Button, Text, StatusBar } from 'react-native';
-import MapView from 'react-native-maps';
+import MapView, {Marker} from 'react-native-maps';
 import { Constants, Location, Permissions } from 'expo';
 
 import FirebaseManager from './Firebase';
@@ -23,6 +23,7 @@ export default class MapScreen extends React.Component {
     location: null,
     errorMessage: null,
     db: null,
+    markerData: []
   }
 
   componentWillMount() {
@@ -38,8 +39,12 @@ export default class MapScreen extends React.Component {
 
     db.collection("reports").get().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
-          console.log(doc.id);
-          console.log(doc.data());
+          // console.log(doc.id);
+          // console.log(doc.data());
+          let obj = doc.data()
+          this.setState((prevState)=>{
+            prevState.markerData.push(obj)
+          })
       });
      });
   }
@@ -67,6 +72,13 @@ export default class MapScreen extends React.Component {
     if (this.state.errorMessage) {
       console.error(this.state.errorMessage)
     }
+    let markers = this.state.markerData.map(({name, description, location, date})=>{
+      return <Marker
+      coordinate={{latitude: location.latitude,longitude: location.longitude}}
+      title='Roadkill'
+      description={description}
+  />
+    })
     return (
       <View style={styles.container}>
          <StatusBar barStyle="default" />

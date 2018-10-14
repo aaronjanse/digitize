@@ -108,6 +108,8 @@ export default class ReportScreen extends Component {
                 flex: 1,
                 backgroundColor: 'transparent',
                 flexDirection: 'row',
+                width: 400,
+                height: 100
               }}>
             </View>
           </Camera>

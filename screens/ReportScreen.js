@@ -10,7 +10,8 @@ export default class ReportScreen extends Component {
     super(props)
     this.state = {
       description: '',
-      location : null
+      latitude: 0,
+      longitude: 0
     }
   }
 
@@ -78,18 +79,14 @@ export default class ReportScreen extends Component {
 
   _getLocationAsync = async () => {
     let location = await Location.getCurrentPositionAsync({});
-    this.setState({ location });
+    var latitude = location.coords.latitude;
+    var longitude = location.coords.longitude;
+    this.setState({ latitude, longitude });
+    this.props.navigation.setParams({latitude})
+    this.props.navigation.setParams({longitude})
   };
 
   render() {
-    let latitude = 0;
-    let longitude = 0;
-    if (this.state.location) {
-      latitude = this.state.location.coords.latitude;
-      longitude = this.state.location.coords.longitude;
-      this.props.navigation.setParams({latitude})
-      this.props.navigation.setParams({longitude})
-    }
     return (
       <View style={styles.container}>
         <TextInput style={styles.input} multiline={true} onChangeText={(description) => this.props.navigation.setParams({description})}
@@ -98,13 +95,13 @@ export default class ReportScreen extends Component {
         <MapView
           style={styles.map}
           region={{
-            latitude: latitude,
-            longitude: longitude,
+            latitude: this.state.latitude,
+            longitude: this.state.longitude,
             latitudeDelta: 0.005,
             longitudeDelta: 0.005
           }}>
               <Marker
-          coordinate={{latitude: latitude,longitude: longitude}}
+          coordinate={{latitude: this.state.latitude, longitude: this.state.longitude}}
           title='title'
           description='description'
           />

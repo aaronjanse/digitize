@@ -91,7 +91,11 @@ export default class MapScreen extends React.Component {
             longitudeDelta: 0.121,
           }}
         >
-        {markers}
+        <Marker
+          coordinate={{latitude: latitude, longitude: longitude}}
+          title='Roadkill'
+          description="Oh no"
+        />
         </MapView>
       </View>
     );

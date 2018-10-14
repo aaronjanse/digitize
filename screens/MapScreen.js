@@ -57,7 +57,7 @@ export default class MapScreen extends React.Component {
       });
     }
 
-    let location = await Location.getCurrentPositionAsync({});
+    let location = await Location.getCurrentPositionAsync({enableHighAccuracy: true});
     this.setState({ location });
   };
 

@@ -78,9 +78,9 @@ export default class ReportScreen extends Component {
   }
 
   _getLocationAsync = async () => {
-    let location = await Location.getCurrentPositionAsync({});
-    var latitude = location.coords.latitude;
-    var longitude = location.coords.longitude;
+    let location = await Location.getCurrentPositionAsync({enableHighAccuracy: true});
+    let latitude = location.coords.latitude;
+    let longitude = location.coords.longitude;
     this.setState({ latitude, longitude });
     this.props.navigation.setParams({latitude})
     this.props.navigation.setParams({longitude})
@@ -89,6 +89,7 @@ export default class ReportScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <Text style={{textAlign: 'center', fontSize: 19}}> Brief Description of Roadkill Incident </Text>
         <TextInput style={styles.input} multiline={true} onChangeText={(description) => this.props.navigation.setParams({description})}
             value={this.state.description} placeholder="Description... "/>
         <Text style={{marginLeft: '7.5%'}}> Incident Location </Text>
@@ -102,8 +103,8 @@ export default class ReportScreen extends Component {
           }}>
               <Marker
           coordinate={{latitude: this.state.latitude, longitude: this.state.longitude}}
-          title='title'
-          description='description'
+          title='Roadkill Report'
+          description='Your current report'
           />
         </MapView>
       </View>

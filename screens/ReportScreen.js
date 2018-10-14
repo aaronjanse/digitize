@@ -33,7 +33,6 @@ export default class ReportScreen extends Component {
             let name = navigation.getParam('name')
 
             console.log("submitting")
-
             let db = FirebaseManager.getInstance().getDB()
 
             db.collection("reports").add({
@@ -125,8 +124,8 @@ const styles = StyleSheet.create({
   input: {
     height: 170,
     width: '85%',
-    borderWidth: 2,
-    borderColor: '#d14817',
+    borderWidth: 1,
+    borderColor: 'black',
     borderRadius: 4,
     marginBottom: 25,
     padding: 8

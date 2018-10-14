@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Image, Text, Button, Platform, View, TextInput, StyleSheet, AsyncStorage, TouchableOpacity } from 'react-native';
-import MapView, {Marker} from 'react-native-maps';
+import MapView, {Marker, Callout} from 'react-native-maps';
 import { ImagePicker, Constants, Location, Permissions } from 'expo';
 
 import FirebaseManager from './Firebase';
@@ -142,10 +142,14 @@ export default class ReportScreen extends Component {
           }}>
           <Marker
             coordinate={{latitude: this.state.latitude, longitude: this.state.longitude}}
-            title='Roadkill Report'
             image={require('../assets/images/marker.png')}
-            description='Your current report'
-          />
+          >
+            <Callout>
+            <View>
+                <Text> Your Location </Text>
+              </View>
+              </Callout>
+          </Marker>
         </MapView>
       </View>
     );

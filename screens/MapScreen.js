@@ -1,6 +1,6 @@
 import React from 'react';
-import { Platform, View, StyleSheet, Button, Text, StatusBar } from 'react-native';
-import MapView, {Marker} from 'react-native-maps';
+import { Image, Platform, View, StyleSheet, Button, Text, StatusBar } from 'react-native';
+import MapView, {Marker, Callout} from 'react-native-maps';
 import { Constants, Location, Permissions } from 'expo';
 
 import FirebaseManager from './Firebase';
@@ -86,14 +86,21 @@ export default class MapScreen extends React.Component {
             longitudeDelta: 0.121,
           }}
         >
-        {this.state.markerData.map(({id, name, description, title, location, date}) => (
+        {this.state.markerData.map(({id, name, description, title, location, date, base64}) => (
           <Marker
             key={id}
             coordinate={{latitude: location[0], longitude: location[1]}}
-            title={title}
-            description={description}
             image={require('../assets/images/marker.png')}
-          />
+          >
+            <Callout key={id}>
+              <View>
+                <Text> {title} </Text>
+                <Text> Reported by: {name.split('')[0]} on {date.toString()}</Text>
+                <Text> {description} </Text>
+                <Image source={{uri: `data:image/gif;base64,${base64}`}}/>
+                </View>
+              </Callout>
+          </Marker>
         ))}
         </MapView>
       </View>

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { ImageBackground } from 'react-native';
-import { Alert, StyleSheet,Text,TouchableOpacity, View,TextInput, Image, AsyncStorage} from 'react-native';
+import { AppAlert, StyleSheet,Text,TouchableOpacity, View,TextInput, Image, AsyncStorage} from 'react-native';
 import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
@@ -62,8 +62,9 @@ export default class LoginScreen extends React.Component {
             <Text style={{textAlign: 'center', fontSize: 35, color: 'white', marginBottom: 10}}> Welcome to EnviroReport</Text>
             <Text style={{textAlign: 'center', fontSize: 20, color: 'white', marginBottom: 0}}> Please enter a few details about you to continue</Text>
           </View>
-          <TextInput style={styles.input} value={this.state.name} onChangeText={(name) => this.setState({name})} placeholder="First Last"/>
-          <TextInput style={styles.input} value={this.state.number} onChangeText={(number) => this.setState({number})} placeholder="Phone Number"/>
+          <TextInput style={styles.input} value={this.state.name} onChangeText={(name) => this.setState({name})} placeholder="First Last" placeholderTextColor="white"/>
+          <TextInput style={styles.input} value={this.state.number} onChangeText={(number) => this.setState({number})} placeholder="Phone Number" placeholderTextColor="white"/>
+
           <Button
             icon={
                 <Icon
@@ -106,6 +107,7 @@ const styles = StyleSheet.create({
     borderBottomColor: 'rgba(255,255,255, 1)',
     borderBottomWidth: 1.5,
     fontSize: 16,
+    color: 'white',
     height: 35,
     width: 260,
   },

@@ -112,6 +112,10 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
+  img: {
+    height: 100,
+    width: 100
+  },
   map: {
     ...StyleSheet.absoluteFillObject,
   },

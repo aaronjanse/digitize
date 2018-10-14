@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import { Text, Button, Platform, View, TextInput, StyleSheet, AsyncStorage, TouchableOpacity } from 'react-native';
+import { Image, Text, Button, Platform, View, TextInput, StyleSheet, AsyncStorage, TouchableOpacity } from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
-import { Camera, Constants, Location, Permissions } from 'expo';
+import { ImagePicker, Constants, Location, Permissions } from 'expo';
 
 import FirebaseManager from './Firebase';
 
@@ -11,7 +11,8 @@ export default class ReportScreen extends Component {
     this.state = {
       description: '',
       latitude: 0,
-      longitude: 0
+      longitude: 0,
+      source: ''
     }
   }
 
@@ -60,6 +61,7 @@ export default class ReportScreen extends Component {
   };
 
   async componentWillMount() {
+    console.log(ImagePicker.showImagePicker)
     if (Platform.OS === 'android' && !Constants.isDevice) {
       this.setState({
         errorMessage: 'Oops, this will not work on Sketch in an Android emulator. Try it on your device!',
@@ -90,31 +92,73 @@ export default class ReportScreen extends Component {
     this.props.navigation.setParams({longitude})
   };
 
-  render() {
-    const { hasCameraPermission } = this.state;
-    if (hasCameraPermission === null) {
-      return <View />;
-    } else if (hasCameraPermission === false) {
-      console.error('no camera permission')
-    }
+  _takePhoto = async () => {
+    const {
+      status: cameraPerm
+    } = await Permissions.askAsync(Permissions.CAMERA);
 
+    const {
+      status: cameraRollPerm
+    } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+
+    // only if user allows permission to camera AND camera roll
+    if (cameraPerm === 'granted' && cameraRollPerm === 'granted') {
+      let pickerResult = await ImagePicker.launchCameraAsync({
+        allowsEditing: true,
+        aspect: [4, 3],
+      });
+
+      this._handleImagePicked(pickerResult);
+    }
+  };
+
+  _handleImagePicked = async pickerResult => {
+      console.log(pickerResult)
+      console.log(pickerResult.uri)
+      let source = {
+        uri: pickerResult.uri
+      }
+      this.setState({source})
+      //let uploadResponse, uploadResult;
+
+      // try {
+      //   this.setState({
+      //     uploading: true
+      //   });
+      //
+      //   if (!pickerResult.cancelled) {
+      //     uploadResponse = await uploadImageAsync(pickerResult.uri);
+      //     uploadResult = await uploadResponse.json();
+      //
+      //     this.setState({
+      //       image: uploadResult.location
+      //     });
+      //     console.log(uploadResult.location)
+      //   }
+      // } catch (e) {
+      //   console.log({ uploadResponse });
+      //   console.log({ uploadResult });
+      //   console.log({ e });
+      //   alert('Upload failed, sorry :(');
+      // } finally {
+      //   this.setState({
+      //     uploading: false
+      //   });
+      // }
+    };
+
+
+  render() {
     return (
       <View style={styles.container}>
       <Text style={{marginLeft: '7.5%', fontSize: 17}}>Report Information</Text>
       <TextInput placeholder="report title ie 'Dead Raccoon' "style={styles.title} onChangeText={(title) => this.props.navigation.setParams({title})}/>
-        <Camera style={{ flex: 1 }} type={Camera.Constants.Type.back}>
-            <View
-              style={{
-                flex: 1,
-                backgroundColor: 'transparent',
-                flexDirection: 'row',
-                width: 400,
-                height: 100
-              }}>
-            </View>
-          </Camera>
+
+      {!this.state.source==='' ? <Image source={this.state.source} style={{width: 150, height: 150}}/> : null }
+
         <TextInput style={styles.input} multiline={true} onChangeText={(description) => this.props.navigation.setParams({description})}
             value={this.state.description} placeholder="Description... "/>
+        <Button title="Take Image" onPress={()=> this._takePhoto()}/>
         <Text style={{marginLeft: '7.5%', fontSize: 17}}> Incident Location </Text>
         <MapView
           style={styles.map}
@@ -144,7 +188,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   input: {
-    height: 120,
+    height: 100,
     width: '85%',
     borderWidth: 1,
     borderColor: 'black',
@@ -153,6 +197,7 @@ const styles = StyleSheet.create({
     padding: 8
   },
   title: {
+    marginTop: 10,
     height: 40,
     width: '85%',
     borderWidth: 1,
@@ -164,6 +209,19 @@ const styles = StyleSheet.create({
   map: {
     width: '85%',
     margin: 'auto',
-    height: 400
+    height: 300
   }
 });
+
+
+// <Camera style={{ flex: 1 }} type={Camera.Constants.Type.back}>
+//     <View
+//       style={{
+//         flex: 1,
+//         backgroundColor: 'transparent',
+//         flexDirection: 'row',
+//         width: 400,
+//         height: 100
+//       }}>
+//     </View>
+//   </Camera>

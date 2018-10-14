@@ -106,6 +106,7 @@ export default class ReportScreen extends Component {
       let pickerResult = await ImagePicker.launchCameraAsync({
         allowsEditing: true,
         aspect: [4, 3],
+        base64: true
       });
 
       this._handleImagePicked(pickerResult);
@@ -119,9 +120,9 @@ export default class ReportScreen extends Component {
         uri: pickerResult.uri
       }
       this.setState({source})
-      var str = await Expo.FileSystem.readAsStringAsync(fileUri)
-      var dataURI = 'data:image/jpg;base64,'+new Buffer(str).toString('base64')
-      console.log(dataURI)
+      // var str = await Expo.FileSystem.readAsStringAsync(fileUri)
+      // var dataURI = 'data:image/jpg;base64,'+new Buffer(str).toString('base64')
+      // console.log(dataURI)
       //let uploadResponse, uploadResult;
 
       // try {

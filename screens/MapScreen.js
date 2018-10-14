@@ -3,17 +3,7 @@ import { Platform, View, StyleSheet, Button, Text, StatusBar } from 'react-nativ
 import MapView from 'react-native-maps';
 import { Constants, Location, Permissions } from 'expo';
 
-import firebase from 'firebase';
-import 'firebase/firestore';
-
-var firebaseConfig = {
-  apiKey: "AIzaSyDhPkHYe62XDScfsbTp3ifP910YK32rGhA",
-  authDomain: "digitize-hackathon.firebaseapp.com",
-  databaseURL: "https://digitize-hackathon.firebaseio.com",
-  projectId: "digitize-hackathon",
-  storageBucket: "digitize-hackathon.appspot.com",
-  messagingSenderId: "328433288607"
-};
+import FirebaseManager from './Firebase';
 
 export default class MapScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -44,11 +34,7 @@ export default class MapScreen extends React.Component {
       this._getLocationAsync();
     }
 
-    var app = firebase.initializeApp(firebaseConfig)
-    var db = app.firestore()
-    this.setState({db: db})
-
-    db.settings({ timestampsInSnapshots: true }) // fix deprecation error
+    var db = FirebaseManager.getInstance().getDB()
 
     db.collection("reports").get().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
